@@ -7,7 +7,7 @@ namespace crm.Infrastructure.Data
     {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Followup> Followups { get; set; }
-        public DbSet<Governorate> Governates { get; set; }
+        public DbSet<Governorate> Governorates { get; set; }
         public DbSet<Area> Areas { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<StatusFollowup> StatusHistory { get; set; }

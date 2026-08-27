@@ -16,10 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\crm.Application\crm.Application.csproj" />
     <ProjectReference Include="..\crm.Infrastructure\crm.Infrastructure.csproj" />
   </ItemGroup>

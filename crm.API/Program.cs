@@ -1,5 +1,9 @@
 
+using crm.Application.Common.Mapping;
+using crm.Application.Features.Governates.Queries.GetAllGovernates;
+using crm.Application.Interfaces;
 using crm.Infrastructure.Data;
+using crm.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace crm.API
@@ -18,6 +22,16 @@ namespace crm.API
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("CS"));
             });
+            builder.Services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<MappingProfile>();
+            });
+            builder.Services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(GetAllGovernatesHandler).Assembly);
+            });
+
+            builder.Services.AddScoped<IGovernorateRepository, GovernorateRepository>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
