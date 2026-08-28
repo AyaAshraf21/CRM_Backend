@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using crm.Application.Features.Areas.DTOs;
 using crm.Application.Features.Governates.DTOs;
 using crm.Domain.Entities;
 using System;
@@ -14,6 +15,8 @@ namespace crm.Application.Common.Mapping
         public MappingProfile()
         {
             CreateMap<Governorate, GovernorateResponseDTO>();
+
+            CreateMap<Area, AreaResponseDTO>();
         }
     }
 }

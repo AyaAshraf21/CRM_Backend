@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace crm.Application.Interfaces
 {
-    public interface IGovernorateRepository
+    public interface IAreaRepository
     {
-        public Task<List<Governorate>> GetAllGovernoratesAsync();
-        public Task<bool> isGovernorateExistsById(int id);
+        public Task<List<Area>> GetAllAreasByGovernorateAsync(int governorateId);
     }
 }

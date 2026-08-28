@@ -1,4 +1,5 @@
 
+using crm.API.Middleware;
 using crm.Application.Common.Mapping;
 using crm.Application.Features.Governates.Queries.GetAllGovernates;
 using crm.Application.Interfaces;
@@ -32,6 +33,8 @@ namespace crm.API
             });
 
             builder.Services.AddScoped<IGovernorateRepository, GovernorateRepository>();
+            builder.Services.AddScoped<IAreaRepository, AreaRepository>();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -45,6 +48,7 @@ namespace crm.API
                 app.UseSwaggerUI();
             }
 
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseAuthorization();
 
 

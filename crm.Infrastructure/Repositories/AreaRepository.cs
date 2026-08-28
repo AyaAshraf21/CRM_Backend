@@ -10,23 +10,18 @@ using System.Threading.Tasks;
 
 namespace crm.Infrastructure.Repositories
 {
-    public class GovernorateRepository : IGovernorateRepository
+    public class AreaRepository : IAreaRepository
     {
         private readonly CRMContext context;
 
-        public GovernorateRepository(CRMContext context)
+        public AreaRepository(CRMContext context)
         {
             this.context = context;
         }
 
-        public async Task<List<Governorate>> GetAllGovernoratesAsync()
+        public async Task<List<Area>> GetAllAreasByGovernorateAsync(int governorateId)
         {
-            return await context.Governorates.ToListAsync();
-        }
-
-        public async Task<bool> isGovernorateExistsById(int id)
-        {
-            return await context.Governorates.AnyAsync(g => g.Id == id);
+            return await context.Areas.Where(a => a.GovernorateId == governorateId).ToListAsync();
         }
     }
 }

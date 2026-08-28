@@ -1,4 +1,5 @@
-﻿using crm.Application.Features.Governates.Queries.GetAllGovernates;
+﻿using crm.Application.Features.Areas.Queries;
+using crm.Application.Features.Governates.Queries.GetAllGovernates;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,17 @@ namespace crm.API.Controllers
         {
             var governorates =  await mediator.Send(new GetAllGovernatesQuery());
             return Ok(governorates);
+        }
+
+        [HttpGet("{governorateId}/areas")]
+        public async Task<IActionResult> GetAllAreasByGovernorate(int governorateId)
+        {
+            var areas = await mediator.Send(new GetAllAreasByGovernorateQuery(governorateId));
+            return Ok(new
+            {
+                GovernorateId = governorateId,
+                Data = areas
+            });
         }
     }
 }
