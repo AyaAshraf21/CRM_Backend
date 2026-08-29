@@ -8,11 +8,11 @@ namespace crm.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GovernorateController : ControllerBase
+    public class GovernoratesController : ControllerBase
     {
         private readonly IMediator mediator;
 
-        public GovernorateController(IMediator mediator)
+        public GovernoratesController(IMediator mediator)
         {
             this.mediator = mediator;
         }

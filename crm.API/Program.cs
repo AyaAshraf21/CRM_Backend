@@ -34,6 +34,8 @@ namespace crm.API
 
             builder.Services.AddScoped<IGovernorateRepository, GovernorateRepository>();
             builder.Services.AddScoped<IAreaRepository, AreaRepository>();
+            builder.Services.AddScoped<ITagRepository, TagRepository>();
+
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

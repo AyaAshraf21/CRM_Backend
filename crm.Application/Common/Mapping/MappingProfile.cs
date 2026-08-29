@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using crm.Application.Features.Areas.DTOs;
 using crm.Application.Features.Governates.DTOs;
+using crm.Application.Features.Tags.DTOs;
 using crm.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace crm.Application.Common.Mapping
             CreateMap<Governorate, GovernorateResponseDTO>();
 
             CreateMap<Area, AreaResponseDTO>();
+
+            CreateMap<Tag, TagResponseDTO>();
         }
     }
 }
