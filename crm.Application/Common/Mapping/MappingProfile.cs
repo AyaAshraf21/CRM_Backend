@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using crm.Application.Features.Areas.DTOs;
+using crm.Application.Features.Customers.DTOs;
 using crm.Application.Features.Governates.DTOs;
 using crm.Application.Features.Tags.DTOs;
 using crm.Domain.Entities;
@@ -20,6 +21,19 @@ namespace crm.Application.Common.Mapping
             CreateMap<Area, AreaResponseDTO>();
 
             CreateMap<Tag, TagResponseDTO>();
+
+            CreateMap<Customer, CustomerResponseDTO>()
+                .ForMember(
+                    dest => dest.GovernorateName,
+                    opt => opt.MapFrom(src => src.Area.Governorate.Name))
+                .ForMember(
+                    dest => dest.AreaName,
+                    opt => opt.MapFrom(src => src.Area.Name))
+                .ForMember(
+                    dest => dest.TagName,
+                    opt => opt.MapFrom(src => src.Tag != null ? src.Tag.Name : null));
+                
+                
         }
     }
 }

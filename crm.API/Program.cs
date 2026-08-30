@@ -1,10 +1,14 @@
 
 using crm.API.Middleware;
+using crm.Application.Behaviors;
 using crm.Application.Common.Mapping;
+using crm.Application.Features.Customers.Validators;
 using crm.Application.Features.Governates.Queries.GetAllGovernates;
 using crm.Application.Interfaces;
 using crm.Infrastructure.Data;
 using crm.Infrastructure.Repositories;
+using FluentValidation;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace crm.API
@@ -32,9 +36,16 @@ namespace crm.API
                 cfg.RegisterServicesFromAssembly(typeof(GetAllGovernatesHandler).Assembly);
             });
 
+            builder.Services.AddValidatorsFromAssemblyContaining<CustomerQueryParametersValidator>();
+
+            builder.Services.AddTransient(
+                typeof(IPipelineBehavior<,>),
+                typeof(ValidationBehavior<,>));
+
             builder.Services.AddScoped<IGovernorateRepository, GovernorateRepository>();
             builder.Services.AddScoped<IAreaRepository, AreaRepository>();
             builder.Services.AddScoped<ITagRepository, TagRepository>();
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

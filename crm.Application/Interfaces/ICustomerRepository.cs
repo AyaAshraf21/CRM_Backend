@@ -1,4 +1,5 @@
-﻿using crm.Domain.Entities;
+﻿using crm.Application.Features.Customers.DTOs;
+using crm.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace crm.Application.Interfaces
 {
     public interface ICustomerRepository
     {
+        public Task<(List<Customer>, int totalCount)> GetAllCustomersAsync(CustomerQueryParameters customerQueryParameters);
     }
 }

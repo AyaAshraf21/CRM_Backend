@@ -1,5 +1,6 @@
 ﻿using crm.API.Models;
 using crm.Application.Exceptions;
+using FluentValidation;
 
 namespace crm.API.Middleware
 {
@@ -27,6 +28,16 @@ namespace crm.API.Middleware
                 };
                 context.Response.StatusCode = StatusCodes.Status404NotFound;
                 await context.Response.WriteAsJsonAsync(response);
+            }
+            catch(ValidationException ex)
+            {
+                var response = new ErrorResponse
+                {
+                    StatusCode = 400,
+                    Message = ex.Message
+                };
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                await context.Response.WriteAsJsonAsync (response);
             }
         }
 
