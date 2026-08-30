@@ -23,5 +23,10 @@ namespace crm.Infrastructure.Repositories
         {
             return await context.Areas.Where(a => a.GovernorateId == governorateId).ToListAsync();
         }
+
+        public async Task<bool> IsAreaIdValid(int areaId, int governorateId)
+        {
+            return await context.Areas.AnyAsync(a => a.Id == areaId && a.GovernorateId == governorateId);
+        }
     }
 }

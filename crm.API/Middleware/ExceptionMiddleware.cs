@@ -39,6 +39,26 @@ namespace crm.API.Middleware
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 await context.Response.WriteAsJsonAsync (response);
             }
+            catch(AlreadyExistsException ex)
+            {
+                var response = new ErrorResponse
+                {
+                    StatusCode = 409,
+                    Message = ex.Message
+                };
+                context.Response.StatusCode = StatusCodes.Status409Conflict;
+                await context.Response.WriteAsJsonAsync(response);
+            }
+            catch(BadRequestException ex)
+            {
+                var response = new ErrorResponse
+                {
+                    StatusCode = 400,
+                    Message = ex.Message
+                };
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                await context.Response.WriteAsJsonAsync(response);
+            }
         }
 
     }

@@ -68,5 +68,15 @@ namespace crm.Infrastructure.Repositories
 
             return (customers, totalCount);
         }
+        
+        public void CreateCustomer(Customer customer)
+        {
+            context.Customers.Add(customer);
+        }
+
+        public async Task<bool> IsPhoneNumberExists(string phoneNumber)
+        {
+            return await context.Customers.AnyAsync(x => x.Phone == phoneNumber);
+        }
     }
 }

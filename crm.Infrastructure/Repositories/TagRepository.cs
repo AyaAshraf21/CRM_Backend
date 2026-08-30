@@ -23,5 +23,10 @@ namespace crm.Infrastructure.Repositories
         {
             return await context.Tags.ToListAsync();
         }
+
+        public async Task<bool> IsTagExistsById(int tagId)
+        {
+            return await context.Tags.AnyAsync(t => t.Id == tagId);
+        }
     }
 }

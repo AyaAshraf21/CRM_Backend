@@ -10,5 +10,6 @@ namespace crm.Application.Interfaces
     public interface IAreaRepository
     {
         public Task<List<Area>> GetAllAreasByGovernorateAsync(int governorateId);
+        public Task<bool> IsAreaIdValid(int areaId, int governorateId);
     }
 }

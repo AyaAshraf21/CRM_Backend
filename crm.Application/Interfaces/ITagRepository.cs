@@ -10,5 +10,6 @@ namespace crm.Application.Interfaces
     public interface ITagRepository
     {
         public Task<List<Tag>> GetAllTagsAsync();
+        public Task<bool> IsTagExistsById(int tagId);
     }
 }

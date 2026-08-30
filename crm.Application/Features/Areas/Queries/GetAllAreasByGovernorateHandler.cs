@@ -26,7 +26,7 @@ namespace crm.Application.Features.Areas.Queries
 
         public async Task<List<AreaResponseDTO>> Handle(GetAllAreasByGovernorateQuery request, CancellationToken cancellationToken)
         {
-            bool isGovernorateExists = await governorateRepository.isGovernorateExistsById(request.governorateId);
+            bool isGovernorateExists = await governorateRepository.IsGovernorateExistsById(request.governorateId);
             if(!isGovernorateExists)
             {
                 throw new NotFoundException("Governorate", request.governorateId);

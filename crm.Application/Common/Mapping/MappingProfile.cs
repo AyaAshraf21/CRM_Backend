@@ -32,8 +32,8 @@ namespace crm.Application.Common.Mapping
                 .ForMember(
                     dest => dest.TagName,
                     opt => opt.MapFrom(src => src.Tag != null ? src.Tag.Name : null));
-                
-                
+
+            CreateMap<CustomerDTO, Customer>();
         }
     }
 }

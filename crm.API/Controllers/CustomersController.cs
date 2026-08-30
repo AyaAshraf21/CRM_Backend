@@ -1,4 +1,5 @@
-﻿using crm.Application.Features.Customers.DTOs;
+﻿using crm.Application.Features.Customers.Commands.CreateCustomer;
+using crm.Application.Features.Customers.DTOs;
 using crm.Application.Features.Customers.Queries.GetAllCustomers;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +22,17 @@ namespace crm.API.Controllers
         {
             var result = await mediator.Send(new GetAllCustomersQuery(customerQueryParameters));
             return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCustomer([FromBody] CustomerDTO customerDTO)
+        {
+            var result = await mediator.Send(new CreateCustomerCommand(customerDTO));
+            return Ok(new
+            {
+                Message = "Customer Created Successfully",
+                Data = result
+            });
         }
     }
 }

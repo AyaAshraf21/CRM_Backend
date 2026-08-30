@@ -11,5 +11,7 @@ namespace crm.Application.Interfaces
     public interface ICustomerRepository
     {
         public Task<(List<Customer>, int totalCount)> GetAllCustomersAsync(CustomerQueryParameters customerQueryParameters);
+        public void CreateCustomer(Customer customer);
+        public Task<bool> IsPhoneNumberExists(string phoneNumber);
     }
 }

@@ -5,6 +5,7 @@ using crm.Application.Common.Mapping;
 using crm.Application.Features.Customers.Validators;
 using crm.Application.Features.Governates.Queries.GetAllGovernates;
 using crm.Application.Interfaces;
+using crm.Infrastructure;
 using crm.Infrastructure.Data;
 using crm.Infrastructure.Repositories;
 using FluentValidation;
@@ -46,6 +47,7 @@ namespace crm.API
             builder.Services.AddScoped<IAreaRepository, AreaRepository>();
             builder.Services.AddScoped<ITagRepository, TagRepository>();
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

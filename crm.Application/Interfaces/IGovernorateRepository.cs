@@ -10,6 +10,6 @@ namespace crm.Application.Interfaces
     public interface IGovernorateRepository
     {
         public Task<List<Governorate>> GetAllGovernoratesAsync();
-        public Task<bool> isGovernorateExistsById(int id);
+        public Task<bool> IsGovernorateExistsById(int id);
     }
 }

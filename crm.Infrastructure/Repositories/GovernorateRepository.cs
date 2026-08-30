@@ -24,7 +24,7 @@ namespace crm.Infrastructure.Repositories
             return await context.Governorates.ToListAsync();
         }
 
-        public async Task<bool> isGovernorateExistsById(int id)
+        public async Task<bool> IsGovernorateExistsById(int id)
         {
             return await context.Governorates.AnyAsync(g => g.Id == id);
         }
