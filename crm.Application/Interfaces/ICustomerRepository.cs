@@ -12,8 +12,8 @@ namespace crm.Application.Interfaces
     {
         public Task<(List<Customer>, int totalCount)> GetAllCustomersAsync(CustomerQueryParameters customerQueryParameters);
         public void CreateCustomer(Customer customer);
-        public Task<bool> IsPhoneNumberExists(string phoneNumber);
+        public Task<bool> IsPhoneNumberExistsAsync(string phoneNumber);
         public void UpdateCustomer(Customer customer);
-        public Task<Customer> GetCustomerById(int id);
+        public Task<Customer> GetCustomerByIdAsync(int id);
     }
 }

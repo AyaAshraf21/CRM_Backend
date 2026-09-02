@@ -30,7 +30,7 @@ namespace crm.Application.Features.Customers.Commands.CreateCustomer
         }
         public async Task<CustomerResponseDTO> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
         {
-            bool isPhoneExist = await customerRepository.IsPhoneNumberExists(request.customerDTO.Phone);
+            bool isPhoneExist = await customerRepository.IsPhoneNumberExistsAsync(request.customerDTO.Phone);
             if (isPhoneExist)
             {
                 throw new AlreadyExistsException("Phone Number");

@@ -31,13 +31,13 @@ namespace crm.Application.Features.Customers.Commands.UpdateCustomer
 
         public async Task<CustomerResponseDTO> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
         {
-            var customer = await customerRepository.GetCustomerById(request.id);
+            var customer = await customerRepository.GetCustomerByIdAsync(request.id);
             if(customer == null)
             {
                 throw new NotFoundException("Customer",request.id);
             }
             if (customer.Phone != request.customerDTO.Phone) {
-                bool isPhoneExist = await customerRepository.IsPhoneNumberExists(request.customerDTO.Phone);
+                bool isPhoneExist = await customerRepository.IsPhoneNumberExistsAsync(request.customerDTO.Phone);
                 if (isPhoneExist)
                 {
                     throw new AlreadyExistsException("Phone");

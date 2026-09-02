@@ -1,4 +1,5 @@
 ﻿using crm.Application.Features.Customers.Commands.CreateCustomer;
+using crm.Application.Features.Customers.Commands.DeleteCustomer;
 using crm.Application.Features.Customers.Commands.UpdateCustomer;
 using crm.Application.Features.Customers.DTOs;
 using crm.Application.Features.Customers.Queries.GetAllCustomers;
@@ -45,6 +46,13 @@ namespace crm.API.Controllers
                 Message = "Customer Updated Successfully",
                 Data = result
             });
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCustomer(int id)
+        {
+            await mediator.Send(new DeleteCustomerCommand(id));
+            return Ok("Customer Deleted Successfully");
         }
     }
 }

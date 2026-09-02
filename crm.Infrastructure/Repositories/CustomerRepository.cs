@@ -74,7 +74,7 @@ namespace crm.Infrastructure.Repositories
             context.Customers.Add(customer);
         }
 
-        public async Task<bool> IsPhoneNumberExists(string phoneNumber)
+        public async Task<bool> IsPhoneNumberExistsAsync(string phoneNumber)
         {
             return await context.Customers.AnyAsync(x => x.Phone == phoneNumber);
         }
@@ -84,7 +84,7 @@ namespace crm.Infrastructure.Repositories
             context.Customers.Update(customer);
         }
 
-        public Task<Customer> GetCustomerById(int id)
+        public Task<Customer> GetCustomerByIdAsync(int id)
         {
             return context.Customers.Include(c => c.Area).FirstOrDefaultAsync(c => c.Id == id);
         }
