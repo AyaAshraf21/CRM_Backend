@@ -1,4 +1,5 @@
 ﻿using crm.Application.Features.Customers.Commands.CreateCustomer;
+using crm.Application.Features.Customers.Commands.UpdateCustomer;
 using crm.Application.Features.Customers.DTOs;
 using crm.Application.Features.Customers.Queries.GetAllCustomers;
 using MediatR;
@@ -31,6 +32,17 @@ namespace crm.API.Controllers
             return Ok(new
             {
                 Message = "Customer Created Successfully",
+                Data = result
+            });
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCustomer(int id,[FromBody] CustomerDTO customerDTO)
+        {
+            var result = await mediator.Send(new UpdateCustomerCommand(id ,customerDTO));
+            return Ok(new
+            {
+                Message = "Customer Updated Successfully",
                 Data = result
             });
         }

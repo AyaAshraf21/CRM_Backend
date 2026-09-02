@@ -78,5 +78,15 @@ namespace crm.Infrastructure.Repositories
         {
             return await context.Customers.AnyAsync(x => x.Phone == phoneNumber);
         }
+
+        public void UpdateCustomer(Customer customer)
+        {
+            context.Customers.Update(customer);
+        }
+
+        public Task<Customer> GetCustomerById(int id)
+        {
+            return context.Customers.Include(c => c.Area).FirstOrDefaultAsync(c => c.Id == id);
+        }
     }
 }
