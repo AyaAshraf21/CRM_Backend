@@ -15,5 +15,6 @@ namespace crm.Application.Interfaces
         public Task<bool> IsPhoneNumberExistsAsync(string phoneNumber);
         public void UpdateCustomer(Customer customer);
         public Task<Customer> GetCustomerByIdAsync(int id);
+        public Task<Customer> GetCustomerByPhoneAsync(string phone);
     }
 }

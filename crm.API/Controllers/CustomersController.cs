@@ -3,6 +3,7 @@ using crm.Application.Features.Customers.Commands.DeleteCustomer;
 using crm.Application.Features.Customers.Commands.UpdateCustomer;
 using crm.Application.Features.Customers.DTOs;
 using crm.Application.Features.Customers.Queries.GetAllCustomers;
+using crm.Application.Features.Customers.Queries.GetCustomerByPhone;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -53,6 +54,13 @@ namespace crm.API.Controllers
         {
             await mediator.Send(new DeleteCustomerCommand(id));
             return Ok("Customer Deleted Successfully");
+        }
+
+        [HttpGet("{phone}")]
+        public async Task<IActionResult> GetCustomerByPhone(string phone)
+        {
+            var customer = await mediator.Send(new GetCustomerByPhoneQuery(phone));
+            return Ok(customer);
         }
     }
 }

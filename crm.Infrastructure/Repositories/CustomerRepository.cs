@@ -88,5 +88,14 @@ namespace crm.Infrastructure.Repositories
         {
             return context.Customers.Include(c => c.Area).FirstOrDefaultAsync(c => c.Id == id);
         }
+
+        public async Task<Customer> GetCustomerByPhoneAsync(string phone)
+        {
+            return await context.Customers
+                .Include(c => c.Area)
+                .ThenInclude(c => c.Governorate)
+                .Include(c => c.Tag)
+                .FirstOrDefaultAsync(c => c.Phone == phone);
+        }
     }
 }
