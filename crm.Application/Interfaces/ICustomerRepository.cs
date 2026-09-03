@@ -16,5 +16,6 @@ namespace crm.Application.Interfaces
         public void UpdateCustomer(Customer customer);
         public Task<Customer> GetCustomerByIdAsync(int id);
         public Task<Customer> GetCustomerByPhoneAsync(string phone);
+        public Task<Customer> GetCustomerByIdWithDeletedAsync(int id);
     }
 }

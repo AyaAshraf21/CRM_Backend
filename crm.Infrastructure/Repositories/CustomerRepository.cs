@@ -97,5 +97,14 @@ namespace crm.Infrastructure.Repositories
                 .Include(c => c.Tag)
                 .FirstOrDefaultAsync(c => c.Phone == phone);
         }
+
+        public async Task<Customer> GetCustomerByIdWithDeletedAsync(int id)
+        {
+            return await context.Customers
+                .Include(c => c.Area)
+                .ThenInclude(c => c.Governorate)
+                .Include(c => c.Tag)
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using crm.Application.Features.Customers.Commands.CreateCustomer;
 using crm.Application.Features.Customers.Commands.DeleteCustomer;
+using crm.Application.Features.Customers.Commands.RestoreCustomer;
 using crm.Application.Features.Customers.Commands.UpdateCustomer;
 using crm.Application.Features.Customers.DTOs;
 using crm.Application.Features.Customers.Queries.GetAllCustomers;
@@ -61,6 +62,17 @@ namespace crm.API.Controllers
         {
             var customer = await mediator.Send(new GetCustomerByPhoneQuery(phone));
             return Ok(customer);
+        }
+
+        [HttpPut("{id}/restore")]
+        public async Task<IActionResult> RestoreCustomer(int id)
+        {
+            var customer = await mediator.Send(new RestoreCustomerCommand(id));
+            return Ok(new
+            {
+                Message = "Customer Restored Successfully",
+                Data = customer
+            });
         }
     }
 }
