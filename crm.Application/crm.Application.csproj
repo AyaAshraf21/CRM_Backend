@@ -19,7 +19,6 @@
   <ItemGroup>
     <Folder Include="Features\Followups\Commands\" />
     <Folder Include="Features\Followups\Validators\" />
-    <Folder Include="Features\Followups\Queries\" />
   </ItemGroup>
 
 </Project>

@@ -17,6 +17,7 @@ namespace crm.Domain.Entities
         public string DeviceType { get; set; } = null!;
         public string? Notes { get; set; }
         public Customer Customer { get; set; } = null!;
+        public bool IsDeleted { get; set; } = false;
 
         public ICollection<StatusFollowup> StatusHistory { get; set; } = [];
     }

@@ -1,6 +1,8 @@
-﻿using crm.Application.Interfaces;
+﻿using crm.Application.Features.Followups.DTOs;
+using crm.Application.Interfaces;
 using crm.Domain.Entities;
 using crm.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +19,95 @@ namespace crm.Infrastructure.Repositories
         {
             this.context = context;
         }
-        public Task<List<Followup>> GetAllFollowupsAsync()
+        public async Task<(List<Followup>, int totalCount)> GetAllFollowupsAsync(FollowupQueryParameters followupQueryParameters)
         {
-            throw new NotImplementedException();
+            var query = context.Followups
+                            .Include(f =>f.StatusHistory)
+                            .Include(f => f.Customer)
+                            .ThenInclude(c => c.Area)
+                            .ThenInclude(a => a.Governorate)
+                            .Include(f => f.Customer)
+                            .ThenInclude(c => c.Tag)
+                            .Where(f => !f.IsDeleted)
+                                .Select(f => new
+                                {
+                                    Followup = f,
+                                    LastStatus = f.StatusHistory.OrderByDescending(s => s.ChangedAt)
+                                                                .Select(s => s.Status)
+                                                                .FirstOrDefault()
+                                });
+
+            // search by name or phone
+            if (!string.IsNullOrWhiteSpace(followupQueryParameters.Search))
+            {
+                query = query.Where(f => f.Followup.Customer.Name.Contains(followupQueryParameters.Search)
+                                        || f.Followup.Customer.Phone.Contains(followupQueryParameters.Search));
+            }
+
+            //search by device type
+            if (!string.IsNullOrWhiteSpace(followupQueryParameters.PhoneSearch))
+            {
+                query = query.Where(f => f.Followup.DeviceType.Contains(followupQueryParameters.PhoneSearch));
+            }
+
+            //governorate
+            if (followupQueryParameters.GovernorateId.HasValue)
+            {
+                query = query.Where(f => f.Followup.Customer.Area.GovernorateId == followupQueryParameters.GovernorateId.Value);
+            }
+
+            //area
+            if(followupQueryParameters.AreaId.HasValue && followupQueryParameters.GovernorateId.HasValue)
+            {
+                query = query.Where(f => f.Followup.Customer.AreaId == followupQueryParameters.AreaId.Value);
+            }
+
+            //tag
+            if (followupQueryParameters.TagId.HasValue)
+            {
+                query = query.Where(f => f.Followup.Customer.TagId == followupQueryParameters.TagId.Value);
+            }
+
+            //status
+            if (followupQueryParameters.StatusId.HasValue)
+            {
+                query = query.Where(f => (int)f.LastStatus == followupQueryParameters.StatusId);
+            }
+
+            //platform
+            if (followupQueryParameters.platformId.HasValue)
+            {
+                query = query.Where(f => (int)f.Followup.Platform == followupQueryParameters.platformId.Value);
+            }
+
+            //payment type
+            if (followupQueryParameters.paymentTypeId.HasValue)
+            {
+                query = query.Where(f => (int)f.Followup.PaymentType == followupQueryParameters.paymentTypeId.Value);
+            }
+
+            //operation type
+            if (followupQueryParameters.operationTypeId.HasValue)
+            {
+                query = query.Where(f => (int)f.Followup.OperationType == followupQueryParameters.operationTypeId.Value);
+            }
+
+            //device condition
+            if (followupQueryParameters.deviceConditionId.HasValue)
+            {
+                query = query.Where(f => (int)f.Followup.DeviceCondition == followupQueryParameters.deviceConditionId.Value);
+            }
+
+            var totalCount = await query.CountAsync();
+
+
+            //pagination
+            query = query.OrderBy(f => f.Followup.Id)
+                         .Skip((followupQueryParameters.Page - 1) * followupQueryParameters.PerPage)
+                         .Take(followupQueryParameters.PerPage);
+
+            var followups = await query.Select(x => x.Followup).ToListAsync();
+            return (followups , totalCount);
         }
     }
 }
