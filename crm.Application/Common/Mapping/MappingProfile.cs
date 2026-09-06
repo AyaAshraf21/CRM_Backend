@@ -63,7 +63,8 @@ namespace crm.Application.Common.Mapping
                     dest => dest.Customer,
                     opt => opt.MapFrom(src => src.Customer)
                 );
-                
+
+            CreateMap<FollowupDTO, Followup>();
         }
     }
 }

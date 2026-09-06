@@ -17,5 +17,6 @@ namespace crm.Application.Features.Followups.DTOs
         public string DeviceCondition { get; set; }
         public string OperationType { get; set; }
         public string PaymentType { get; set; }
+        public string? Notes { get; set; }
     }
 }

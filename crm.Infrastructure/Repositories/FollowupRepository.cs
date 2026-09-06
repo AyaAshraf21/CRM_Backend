@@ -109,5 +109,10 @@ namespace crm.Infrastructure.Repositories
             var followups = await query.Select(x => x.Followup).ToListAsync();
             return (followups , totalCount);
         }
+
+        public void CreateFollowup(Followup followup)
+        {
+            context.Followups.Add(followup);
+        }
     }
 }

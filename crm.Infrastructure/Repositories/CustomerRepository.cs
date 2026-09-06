@@ -86,7 +86,11 @@ namespace crm.Infrastructure.Repositories
 
         public Task<Customer> GetCustomerByIdAsync(int id)
         {
-            return context.Customers.Include(c => c.Area).FirstOrDefaultAsync(c => c.Id == id);
+            return context.Customers
+                .Include(c => c.Area)
+                .ThenInclude(c => c.Governorate)
+                .Include(c => c.Tag)
+                .FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<Customer> GetCustomerByPhoneAsync(string phone)

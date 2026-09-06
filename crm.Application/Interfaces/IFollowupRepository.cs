@@ -11,5 +11,6 @@ namespace crm.Application.Interfaces
     public interface IFollowupRepository
     {
         public Task<(List<Followup> , int totalCount)> GetAllFollowupsAsync(FollowupQueryParameters followupQueryParameters);
+        public void CreateFollowup(Followup followup);
     }
 }
