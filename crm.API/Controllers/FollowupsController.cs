@@ -1,4 +1,5 @@
 ﻿using crm.Application.Features.Followups.Commands.CreateFollowup;
+using crm.Application.Features.Followups.Commands.DeleteFollowup;
 using crm.Application.Features.Followups.Commands.UpdateFollowup;
 using crm.Application.Features.Followups.Commands.UpdateFollowupStatus;
 using crm.Application.Features.Followups.DTOs;
@@ -58,6 +59,13 @@ namespace crm.API.Controllers
                 Message = "Followup Status Updated Successfully",
                 Data = result
             });
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteFollowup(int id)
+        {
+            await mediator.Send(new DeleteFollowupCommand(id));
+            return Ok("Followup Deleted Successfully");
         }
     }
 }
