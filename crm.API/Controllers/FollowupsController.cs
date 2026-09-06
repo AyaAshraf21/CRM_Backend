@@ -1,4 +1,5 @@
 ﻿using crm.Application.Features.Followups.Commands.CreateFollowup;
+using crm.Application.Features.Followups.Commands.UpdateFollowup;
 using crm.Application.Features.Followups.DTOs;
 using crm.Application.Features.Followups.Queries.GetAllFollowups;
 using MediatR;
@@ -31,6 +32,17 @@ namespace crm.API.Controllers
             return Ok(new
             {
                 Message = "Followup Created Successfully",
+                Data = result
+            });
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateFollowup(int id, [FromBody] FollowupDTO followupDTO)
+        {
+            var result = await mediator.Send(new UpdateFollowupCommand(id, followupDTO));
+            return Ok(new
+            {
+                Message = "Followup Updated Successfully",
                 Data = result
             });
         }

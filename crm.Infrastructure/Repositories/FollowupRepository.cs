@@ -114,5 +114,22 @@ namespace crm.Infrastructure.Repositories
         {
             context.Followups.Add(followup);
         }
+        public void UpdateFollowup(Followup followup)
+        {
+            context.Followups.Update(followup);
+        }
+
+        public async Task<Followup> GetFollowupByIdAsync(int id)
+        {
+            return await context.Followups
+                .Include(f => f.StatusHistory)
+                .Include(f => f.Customer)
+                .ThenInclude(c => c.Area)
+                .ThenInclude(a => a.Governorate)
+                .Include(f => f.Customer)
+                .ThenInclude(c => c.Tag)
+                .Where(f => !f.IsDeleted)
+                .FirstOrDefaultAsync(f => f.Id == id);
+        }
     }
 }

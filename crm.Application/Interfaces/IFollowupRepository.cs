@@ -12,5 +12,7 @@ namespace crm.Application.Interfaces
     {
         public Task<(List<Followup> , int totalCount)> GetAllFollowupsAsync(FollowupQueryParameters followupQueryParameters);
         public void CreateFollowup(Followup followup);
+        public void UpdateFollowup(Followup followup);
+        public Task<Followup> GetFollowupByIdAsync(int id);
     }
 }
