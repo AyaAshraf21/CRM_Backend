@@ -1,7 +1,9 @@
 ﻿using crm.Application.Features.Followups.Commands.CreateFollowup;
 using crm.Application.Features.Followups.Commands.UpdateFollowup;
+using crm.Application.Features.Followups.Commands.UpdateFollowupStatus;
 using crm.Application.Features.Followups.DTOs;
 using crm.Application.Features.Followups.Queries.GetAllFollowups;
+using crm.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +45,17 @@ namespace crm.API.Controllers
             return Ok(new
             {
                 Message = "Followup Updated Successfully",
+                Data = result
+            });
+        }
+
+        [HttpPut("{id}/{status}")]
+        public async Task<IActionResult> UpdateFollowupStatus(int id, Status status)
+        {
+            var result = await mediator.Send(new UpdateFollowupStatusCommand(id, status));
+            return Ok(new
+            {
+                Message = "Followup Status Updated Successfully",
                 Data = result
             });
         }
