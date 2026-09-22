@@ -5,6 +5,7 @@ using crm.Application.Features.Customers.Commands.UpdateCustomer;
 using crm.Application.Features.Customers.DTOs;
 using crm.Application.Features.Customers.Queries.GetAllCustomers;
 using crm.Application.Features.Customers.Queries.GetCustomerByPhone;
+using crm.Application.Features.Customers.Queries.GetCustomerNum;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -73,6 +74,13 @@ namespace crm.API.Controllers
                 Message = "Customer Restored Successfully",
                 Data = customer
             });
+        }
+
+        [HttpGet("customers-num")]
+        public async Task<IActionResult> GetCustomersNum()
+        {
+            var result = await mediator.Send(new GetCustomersNumQuery());
+            return Ok(result);
         }
     }
 }

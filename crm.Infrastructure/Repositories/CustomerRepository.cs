@@ -110,5 +110,10 @@ namespace crm.Infrastructure.Repositories
                 .Include(c => c.Tag)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
+
+        public Task<int> GetCustomersNumAsync()
+        {
+            return context.Customers.CountAsync();
+        }
     }
 }

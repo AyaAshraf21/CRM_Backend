@@ -17,5 +17,6 @@ namespace crm.Application.Interfaces
         public Task<Customer> GetCustomerByIdAsync(int id);
         public Task<Customer> GetCustomerByPhoneAsync(string phone);
         public Task<Customer> GetCustomerByIdWithDeletedAsync(int id);
+        public Task<int> GetCustomersNumAsync();
     }
 }
