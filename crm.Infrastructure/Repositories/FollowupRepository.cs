@@ -131,5 +131,10 @@ namespace crm.Infrastructure.Repositories
                 .Where(f => !f.IsDeleted)
                 .FirstOrDefaultAsync(f => f.Id == id);
         }
+
+        public async Task<int> GetFollowupsNumAsync()
+        {
+            return await context.Followups.CountAsync();
+        }
     }
 }

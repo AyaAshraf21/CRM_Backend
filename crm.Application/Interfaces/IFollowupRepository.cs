@@ -14,5 +14,6 @@ namespace crm.Application.Interfaces
         public void CreateFollowup(Followup followup);
         public void UpdateFollowup(Followup followup);
         public Task<Followup> GetFollowupByIdAsync(int id);
+        public Task<int> GetFollowupsNumAsync();
     }
 }
