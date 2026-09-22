@@ -1,4 +1,5 @@
-﻿using crm.Domain.Enums;
+﻿using crm.Domain.Entities;
+using crm.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace crm.Application.Interfaces
     public interface IAnalyticsRepository
     {
         public Task<Platform> GetBestPlatformAsync();
-
+        public Task<String?> GetTopGovernorate();
     }
 }

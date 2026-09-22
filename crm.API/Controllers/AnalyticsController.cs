@@ -1,4 +1,5 @@
 ﻿using crm.Application.Features.Analytics.Queries.GetBestPlatform;
+using crm.Application.Features.Analytics.Queries.GetTopGovernorate;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,13 @@ namespace crm.API.Controllers
         public async Task<IActionResult> GetBestPlatform()
         {
             var result = await mediator.Send(new GetBestPlatformQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("overview/top-governorate")]
+        public async Task<IActionResult> GetTopGovernorate()
+        {
+            var result = await mediator.Send(new GetTopGovernorateQuery());
             return Ok(result);
         }
     }
