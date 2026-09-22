@@ -48,6 +48,7 @@ namespace crm.API
             builder.Services.AddScoped<ITagRepository, TagRepository>();
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddScoped<IFollowupRepository, FollowupRepository>();
+            builder.Services.AddScoped<IAnalyticsRepository, AnalyticsRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
