@@ -44,5 +44,22 @@ namespace crm.Infrastructure.Repositories
                             .Select(g => g.Key)
                             .FirstOrDefaultAsync();
         }
+
+        public async Task<string?> GetTopDevice()
+        {
+            return await context.Followups
+                            .Where(f => !f.IsDeleted &&
+                                    f.OperationType == OperationType.Selling &&
+                                    f.StatusHistory
+                                        .OrderByDescending(s => s.ChangedAt)
+                                        .ThenByDescending(s => s.Id)
+                                        .Select(s => s.Status)
+                                        .FirstOrDefault() == Status.Purchased)
+                            .GroupBy(f => f.DeviceType)
+                            .OrderByDescending(g => g.Count())
+                            .Select(g => g.Key)
+                            .FirstOrDefaultAsync();
+        }
+
     }
 }

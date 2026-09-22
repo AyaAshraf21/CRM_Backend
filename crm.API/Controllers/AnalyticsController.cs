@@ -1,4 +1,5 @@
 ﻿using crm.Application.Features.Analytics.Queries.GetBestPlatform;
+using crm.Application.Features.Analytics.Queries.GetTopDevice;
 using crm.Application.Features.Analytics.Queries.GetTopGovernorate;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -28,6 +29,13 @@ namespace crm.API.Controllers
         public async Task<IActionResult> GetTopGovernorate()
         {
             var result = await mediator.Send(new GetTopGovernorateQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("overview/top-device")]
+        public async Task<IActionResult> GetTopDevice()
+        {
+            var result = await mediator.Send(new GetTopDeviceQuery());
             return Ok(result);
         }
     }
