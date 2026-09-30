@@ -19,7 +19,7 @@ namespace crm.Application.Features.Analytics.Queries.GetTopDevice
 
         public async Task<string> Handle(GetTopDeviceQuery request, CancellationToken cancellationToken)
         {
-            return await analyticsRepository.GetTopDevice();
+            return await analyticsRepository.GetTopDeviceAsync();
         }
     }
 }
