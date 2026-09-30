@@ -1,6 +1,7 @@
 ﻿using crm.Application.Features.Followups.DTOs;
 using crm.Application.Interfaces;
 using crm.Domain.Entities;
+using crm.Domain.Enums;
 using crm.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -134,7 +135,25 @@ namespace crm.Infrastructure.Repositories
 
         public async Task<int> GetFollowupsNumAsync()
         {
-            return await context.Followups.CountAsync();
+            return await context.Followups.Where(f => !f.IsDeleted).CountAsync();
+        }
+
+        public async Task<int> GetActiveFollowupsNumAsync()
+        {
+            return await context.Followups.Where(f => !f.IsDeleted &&
+                                        f.StatusHistory.OrderByDescending(s => s.ChangedAt)
+                                                        .ThenByDescending(s=> s.Id)
+                                                        .Select(s=> s.Status)
+                                                        .FirstOrDefault() != (Status.Cancelled) &&
+                                        f.StatusHistory.OrderByDescending(s => s.ChangedAt)
+                                                        .ThenByDescending(s=> s.Id)
+                                                        .Select(s=> s.Status)
+                                                        .FirstOrDefault() != (Status.Postponed) &&
+                                        f.StatusHistory.OrderByDescending(s => s.ChangedAt)
+                                                        .ThenByDescending(s=> s.Id)
+                                                        .Select(s=> s.Status)
+                                                        .FirstOrDefault() != (Status.InstallmentAccepted)
+                                        ).CountAsync();
         }
     }
 }

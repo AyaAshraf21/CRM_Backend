@@ -3,6 +3,7 @@ using crm.Application.Features.Followups.Commands.DeleteFollowup;
 using crm.Application.Features.Followups.Commands.UpdateFollowup;
 using crm.Application.Features.Followups.Commands.UpdateFollowupStatus;
 using crm.Application.Features.Followups.DTOs;
+using crm.Application.Features.Followups.Queries.GetActiveFollowupsNum;
 using crm.Application.Features.Followups.Queries.GetAllFollowups;
 using crm.Application.Features.Followups.Queries.GetFollowupsNum;
 using crm.Domain.Enums;
@@ -73,6 +74,13 @@ namespace crm.API.Controllers
         public async Task<IActionResult> GetFollowupsNum()
         {
             var result = await mediator.Send(new GetFollowupsNumQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("active-followups-num")]
+        public async Task<IActionResult> GetActiveFollowupsNum()
+        {
+            var result = await mediator.Send(new GetActiveFollowupsNumQuery());
             return Ok(result);
         }
     }

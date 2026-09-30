@@ -20,7 +20,7 @@ namespace crm.Application.Features.Analytics.Queries.GetTopGovernorate
 
         public async Task<string> Handle(GetTopGovernorateQuery request, CancellationToken cancellationToken)
         {
-            return await analyticsRepository.GetTopGovernorate();
+            return await analyticsRepository.GetTopGovernorateAsync();
         }
     }
 }

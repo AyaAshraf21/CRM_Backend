@@ -11,7 +11,8 @@ namespace crm.Application.Interfaces
     public interface IAnalyticsRepository
     {
         public Task<Platform> GetBestPlatformAsync();
-        public Task<string?> GetTopGovernorate();
-        public Task<string?> GetTopDevice();
+        public Task<string?> GetTopGovernorateAsync();
+        public Task<string?> GetTopDeviceAsync();
+        public Task<int> GetSalesNumAsync();
     }
 }

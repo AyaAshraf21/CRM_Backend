@@ -113,7 +113,7 @@ namespace crm.Infrastructure.Repositories
 
         public Task<int> GetCustomersNumAsync()
         {
-            return context.Customers.CountAsync();
+            return context.Customers.Where(c => !c.IsDeleted).CountAsync();
         }
     }
 }

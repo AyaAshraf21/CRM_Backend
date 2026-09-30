@@ -22,14 +22,20 @@ namespace crm.Infrastructure.Repositories
         public async Task<Platform> GetBestPlatformAsync()
         {
             return await context.Followups
-                .Where(f => !f.IsDeleted)
+                .Where(f => !f.IsDeleted &&
+                        f.OperationType == OperationType.Selling &&
+                        f.StatusHistory
+                                       .OrderByDescending(s => s.ChangedAt)
+                                       .ThenByDescending(s => s.Id)
+                                       .Select(s => s.Status)
+                                       .FirstOrDefault() == Status.Purchased)
                 .GroupBy(f => f.Platform)
                 .OrderByDescending(g => g.Count())
                 .Select(g => g.Key)
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<string?> GetTopGovernorate()
+        public async Task<string?> GetTopGovernorateAsync()
         {
             return await context.Followups
                             .Where(f => !f.IsDeleted &&
@@ -45,7 +51,7 @@ namespace crm.Infrastructure.Repositories
                             .FirstOrDefaultAsync();
         }
 
-        public async Task<string?> GetTopDevice()
+        public async Task<string?> GetTopDeviceAsync()
         {
             return await context.Followups
                             .Where(f => !f.IsDeleted &&
@@ -61,5 +67,18 @@ namespace crm.Infrastructure.Repositories
                             .FirstOrDefaultAsync();
         }
 
+        public async Task<int> GetSalesNumAsync()
+        {
+            return await context.Followups
+                                .Where(f => !f.IsDeleted &&
+                                        f.OperationType == OperationType.Selling &&
+                                        f.StatusHistory
+                                        .OrderByDescending(s => s.ChangedAt)
+                                        .ThenByDescending(s => s.Id)
+                                        .Select(s => s.Status)
+                                        .FirstOrDefault() == Status.Purchased)
+                                .CountAsync();
+                                
+        }
     }
 }
