@@ -80,5 +80,12 @@ namespace crm.Infrastructure.Repositories
                                 .CountAsync();
                                 
         }
+
+        public async Task<int> GetCustomersNumForThisMonthAsync()
+        {
+            return await context.Customers.Where(c => !c.IsDeleted &&
+                                                    c.CreatedAt.Month == DateTime.UtcNow.Month &&
+                                                    c.CreatedAt.Year == DateTime.UtcNow.Year).CountAsync();
+        }
     }
 }

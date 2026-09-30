@@ -14,5 +14,6 @@ namespace crm.Application.Interfaces
         public Task<string?> GetTopGovernorateAsync();
         public Task<string?> GetTopDeviceAsync();
         public Task<int> GetSalesNumAsync();
+        public Task<int> GetCustomersNumForThisMonthAsync();
     }
 }

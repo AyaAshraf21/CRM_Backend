@@ -70,14 +70,14 @@ namespace crm.API.Controllers
             return Ok("Followup Deleted Successfully");
         }
 
-        [HttpGet("followups-num")]
+        [HttpGet("followups-count")]
         public async Task<IActionResult> GetFollowupsNum()
         {
             var result = await mediator.Send(new GetFollowupsNumQuery());
             return Ok(result);
         }
 
-        [HttpGet("active-followups-num")]
+        [HttpGet("active-followups-count")]
         public async Task<IActionResult> GetActiveFollowupsNum()
         {
             var result = await mediator.Send(new GetActiveFollowupsNumQuery());
