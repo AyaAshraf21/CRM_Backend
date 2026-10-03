@@ -87,5 +87,19 @@ namespace crm.Infrastructure.Repositories
                                                     c.CreatedAt.Month == DateTime.UtcNow.Month &&
                                                     c.CreatedAt.Year == DateTime.UtcNow.Year).CountAsync();
         }
+
+        public async Task<int> GetSalesNumForThisMonthAsync()
+        {
+            return await context.Followups.Where(f => !f.IsDeleted &&
+                                        f.OperationType == OperationType.Selling &&
+                                        f.CreatedAt.Month == DateTime.UtcNow.Month &&
+                                        f.CreatedAt.Year == DateTime.UtcNow.Year &&
+                                        f.StatusHistory
+                                        .OrderByDescending(s => s.ChangedAt)
+                                        .ThenByDescending(s => s.Id)
+                                        .Select(s => s.Status)
+                                        .FirstOrDefault() == Status.Purchased
+                                        ).CountAsync();
+        }
     }
 }

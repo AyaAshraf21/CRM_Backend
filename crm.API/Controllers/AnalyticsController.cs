@@ -2,6 +2,7 @@
 using crm.Application.Features.Analytics.Queries.GetConversionRate;
 using crm.Application.Features.Analytics.Queries.GetCustomerNumForThisMonth;
 using crm.Application.Features.Analytics.Queries.GetSalesNum;
+using crm.Application.Features.Analytics.Queries.GetSalesNumForThisMonth;
 using crm.Application.Features.Analytics.Queries.GetTopDevice;
 using crm.Application.Features.Analytics.Queries.GetTopGovernorate;
 using MediatR;
@@ -60,6 +61,13 @@ namespace crm.API.Controllers
         public async Task<IActionResult> GetCustomerNumForThisMonth()
         {
             var result = await mediator.Send(new GetCustomerNumForThisMonthQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("main-stat/sales-count-this-month")]
+        public async Task<IActionResult> GetSalesNumForThisMonth()
+        {
+            var result = await mediator.Send(new GetSalesNumForThisMonthQuery());
             return Ok(result);
         }
     }
