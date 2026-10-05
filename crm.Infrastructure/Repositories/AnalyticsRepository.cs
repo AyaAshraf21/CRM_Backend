@@ -1,4 +1,5 @@
-﻿using crm.Application.Features.Analytics.DTOs;
+﻿using Azure.Core;
+using crm.Application.Features.Analytics.DTOs;
 using crm.Application.Interfaces;
 using crm.Domain.Entities;
 using crm.Domain.Enums;
@@ -138,6 +139,23 @@ namespace crm.Infrastructure.Repositories
                         .OrderBy(x => x.Year)
                         .ThenBy(x => x.Month)
                         .ToListAsync();
+        }
+
+        public async Task<MonthlyCustomerCountDTO> GetBestMonthAsync()
+        {
+            return await context.Customers.Where(c => !c.IsDeleted)
+                                    .GroupBy(c => new
+                                    {
+                                        c.CreatedAt.Year,
+                                        c.CreatedAt.Month,
+                                    }).Select( g=> new MonthlyCustomerCountDTO
+                                    {
+                                        Year = g.Key.Year,
+                                        Month = g.Key.Month,
+                                        Count = g.Count()
+                                    })
+                                    .OrderByDescending(x => x.Count)
+                                    .FirstOrDefaultAsync();
         }
     }
 }
