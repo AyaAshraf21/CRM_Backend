@@ -157,5 +157,19 @@ namespace crm.Infrastructure.Repositories
                                     .OrderByDescending(x => x.Count)
                                     .FirstOrDefaultAsync();
         }
+
+        public async Task<int> GetAverageCustomersPerMonthAsync()
+        {
+            var result = await context.Customers.Where(c => !c.IsDeleted)
+                                    .GroupBy(c => new
+                                    {
+                                        c.CreatedAt.Year,
+                                        c.CreatedAt.Month,
+                                    })
+                                    .Select(g => g.Count())
+                                    .AverageAsync();
+            return (int)result;
+                                    
+        }
     }
 }
