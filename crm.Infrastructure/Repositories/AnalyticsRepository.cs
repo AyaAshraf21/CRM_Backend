@@ -87,7 +87,7 @@ namespace crm.Infrastructure.Repositories
                                                     c.CreatedAt.Month == DateTime.UtcNow.Month &&
                                                     c.CreatedAt.Year == DateTime.UtcNow.Year).CountAsync();
         }
-
+        
         public async Task<int> GetSalesNumForThisMonthAsync()
         {
             return await context.Followups.Where(f => !f.IsDeleted &&
@@ -100,6 +100,24 @@ namespace crm.Infrastructure.Repositories
                                         .Select(s => s.Status)
                                         .FirstOrDefault() == Status.Purchased
                                         ).CountAsync();
+        }
+
+        public Task<int> GetSalesNumForLastMonthAsync()
+        {
+            var now = DateTime.UtcNow;
+
+            var startOfLastMonth = new DateTime(now.Year, now.Month, 1).AddMonths(-1);
+            var startOfThisMonth = new DateTime(now.Year, now.Month, 1);
+
+            return context.StatusHistory
+                .Where(s =>
+                    s.Status == Status.Purchased &&
+                    s.ChangedAt >= startOfLastMonth &&
+                    s.ChangedAt < startOfThisMonth &&
+                    !s.Followup.IsDeleted &&
+                    s.Followup.OperationType == OperationType.Selling
+                )
+                .CountAsync();
         }
     }
 }

@@ -16,5 +16,6 @@ namespace crm.Application.Interfaces
         public Task<int> GetSalesNumAsync();
         public Task<int> GetCustomersNumForThisMonthAsync();
         public Task<int> GetSalesNumForThisMonthAsync();
+        public Task<int> GetSalesNumForLastMonthAsync();
     }
 }
