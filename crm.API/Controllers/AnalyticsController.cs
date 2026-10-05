@@ -1,6 +1,7 @@
 ﻿using crm.Application.Features.Analytics.Queries.GetBestPlatform;
 using crm.Application.Features.Analytics.Queries.GetConversionRate;
 using crm.Application.Features.Analytics.Queries.GetCustomerNumForThisMonth;
+using crm.Application.Features.Analytics.Queries.GetCustomersPerMonth;
 using crm.Application.Features.Analytics.Queries.GetMonthlyGrowth;
 using crm.Application.Features.Analytics.Queries.GetSalesNum;
 using crm.Application.Features.Analytics.Queries.GetSalesNumForThisMonth;
@@ -76,6 +77,13 @@ namespace crm.API.Controllers
         public async Task<IActionResult> GetMonthlyGrowth()
         {
             var result = await mediator.Send(new GetMonthlyGrowthQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("sales-analytics/customers-per-month")]
+        public async Task<IActionResult> GetCustomersPerMonth()
+        {
+            var result = await mediator.Send(new GetCustomersPerMonthQuery());
             return Ok(result);
         }
 

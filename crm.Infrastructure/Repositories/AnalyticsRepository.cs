@@ -1,4 +1,5 @@
-﻿using crm.Application.Interfaces;
+﻿using crm.Application.Features.Analytics.DTOs;
+using crm.Application.Interfaces;
 using crm.Domain.Entities;
 using crm.Domain.Enums;
 using crm.Infrastructure.Data;
@@ -118,6 +119,25 @@ namespace crm.Infrastructure.Repositories
                     s.Followup.OperationType == OperationType.Selling
                 )
                 .CountAsync();
+        }
+
+        public async Task<List<MonthlyCustomerCountDTO>> GetCustomersPerMonthAsync()
+        {
+            return await context.Customers.Where(c => !c.IsDeleted)
+                        .GroupBy(c => new
+                        {
+                            c.CreatedAt.Year,
+                            c.CreatedAt.Month
+                        })
+                        .Select(g => new MonthlyCustomerCountDTO
+                        {
+                            Year = g.Key.Year,
+                            Month = g.Key.Month,
+                            Count = g.Count()
+                        })
+                        .OrderBy(x => x.Year)
+                        .ThenBy(x => x.Month)
+                        .ToListAsync();
         }
     }
 }

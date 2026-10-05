@@ -1,4 +1,5 @@
-﻿using crm.Domain.Entities;
+﻿using crm.Application.Features.Analytics.DTOs;
+using crm.Domain.Entities;
 using crm.Domain.Enums;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,6 @@ namespace crm.Application.Interfaces
         public Task<int> GetCustomersNumForThisMonthAsync();
         public Task<int> GetSalesNumForThisMonthAsync();
         public Task<int> GetSalesNumForLastMonthAsync();
+        public Task<List<MonthlyCustomerCountDTO>> GetCustomersPerMonthAsync();
     }
 }
