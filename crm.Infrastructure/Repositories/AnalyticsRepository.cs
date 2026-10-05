@@ -171,5 +171,58 @@ namespace crm.Infrastructure.Repositories
             return (int)result;
                                     
         }
+
+        public async Task<List<PlatformsAnalyticsDTO>> GetPlatformsAnalyticsAsync()
+        {
+            var platformFollowups = context.Followups
+                        .Where(f => !f.IsDeleted)
+                        .GroupBy(f => f.Platform)
+                        .Select(g => new
+                        {
+                            Platform = g.Key,
+                            FollowupCount = g.Count()
+                        });
+
+            var platformSales = context.Followups
+                        .Where(f =>
+                            !f.IsDeleted &&
+                            f.OperationType == OperationType.Selling &&
+                            f.StatusHistory
+                                .OrderByDescending(s => s.ChangedAt)
+                                .ThenByDescending(s => s.Id)
+                                .Select(s => s.Status)
+                                .FirstOrDefault() == Status.Purchased)
+                        .GroupBy(f => f.Platform)
+                        .Select(g => new
+                        {
+                            Platform = g.Key,
+                            PurchasedCount = g.Count()
+                        });
+
+            var result = await platformFollowups
+                        .GroupJoin(
+                            platformSales,
+                            pf => pf.Platform,
+                            ps => ps.Platform,
+                            (pf, sales) => new
+                            {
+                                pf.Platform,
+                                pf.FollowupCount,
+                                PurchasedCount = sales
+                                    .Select(x => x.PurchasedCount)
+                                    .FirstOrDefault()
+                            })
+                        .Select(x => new PlatformsAnalyticsDTO
+                        {
+                            Platform = x.Platform,
+                            FollowupCount = x.FollowupCount,
+                            PurchasedCount = x.PurchasedCount,
+                            ConversionRate = (double)x.PurchasedCount / x.FollowupCount * 100
+                        })
+                        .OrderByDescending(x => x.ConversionRate)
+                        .ToListAsync();
+
+            return result;
+        }
     }
 }

@@ -5,6 +5,7 @@ using crm.Application.Features.Analytics.Queries.GetConversionRate;
 using crm.Application.Features.Analytics.Queries.GetCustomerNumForThisMonth;
 using crm.Application.Features.Analytics.Queries.GetCustomersPerMonth;
 using crm.Application.Features.Analytics.Queries.GetMonthlyGrowth;
+using crm.Application.Features.Analytics.Queries.GetPlatformAnalytics;
 using crm.Application.Features.Analytics.Queries.GetSalesNum;
 using crm.Application.Features.Analytics.Queries.GetSalesNumForThisMonth;
 using crm.Application.Features.Analytics.Queries.GetTopDevice;
@@ -103,5 +104,11 @@ namespace crm.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("sales-analytics/platform-analytics")]
+        public async Task<IActionResult> GetPlatformAnalytics()
+        {
+            var result = await mediator.Send(new GetPlatformAnalyticsQuery());
+            return Ok(result);
+        }
     }
 }
