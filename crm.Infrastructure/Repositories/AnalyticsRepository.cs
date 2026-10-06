@@ -334,5 +334,36 @@ namespace crm.Infrastructure.Repositories
                             .Take(5)
                             .ToListAsync();
         }
+
+        public async Task<List<AreaAnalyticsDTO>> GetAreaAnalyticsAsync()
+        {
+            return await context.Followups
+                .Where(f =>
+                    !f.IsDeleted &&
+                    f.OperationType == OperationType.Selling &&
+                    f.StatusHistory
+                        .OrderByDescending(s => s.ChangedAt)
+                        .ThenByDescending(s => s.Id)
+                        .Select(s => s.Status)
+                        .FirstOrDefault() == Status.Purchased)
+                .GroupBy(f => new
+                {
+                    AreaId = f.Customer.AreaId,
+                    AreaName = f.Customer.Area.Name,
+                    GovernorateId = f.Customer.Area.GovernorateId,
+                    GovernorateName = f.Customer.Area.Governorate.Name
+                })
+                .Select(g => new AreaAnalyticsDTO
+                {
+                    AreaId = g.Key.AreaId,
+                    AreaName = g.Key.AreaName,
+                    GovernorateId = g.Key.GovernorateId,
+                    GovernorateName = g.Key.GovernorateName,
+                    SalesCount = g.Count()
+                })
+                .OrderByDescending(x => x.SalesCount)
+                .Take(5)
+                .ToListAsync();
+        }
     }
 }

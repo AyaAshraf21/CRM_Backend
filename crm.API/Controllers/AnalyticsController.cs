@@ -1,4 +1,5 @@
-﻿using crm.Application.Features.Analytics.Queries.GetAverageCustomersPerMonth;
+﻿using crm.Application.Features.Analytics.Queries.GetAreaAnalytics;
+using crm.Application.Features.Analytics.Queries.GetAverageCustomersPerMonth;
 using crm.Application.Features.Analytics.Queries.GetBestMonth;
 using crm.Application.Features.Analytics.Queries.GetBestPlatform;
 using crm.Application.Features.Analytics.Queries.GetConversionRate;
@@ -129,6 +130,13 @@ namespace crm.API.Controllers
         public async Task<IActionResult> GetGovernorateAnalytics()
         {
             var result = await mediator.Send(new GetGovernorateAnalyticsQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("geo-distribution/area-analytics")]
+        public async Task<IActionResult> GetAreaAnalytics()
+        {
+            var result = await mediator.Send(new GetAreaAnalyticsQuery());
             return Ok(result);
         }
 

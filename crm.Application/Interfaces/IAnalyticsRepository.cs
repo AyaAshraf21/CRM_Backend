@@ -29,5 +29,6 @@ namespace crm.Application.Interfaces
         public Task<List<OperationTypeAnalyticsDTO>> GetOperationTypeAnalyticsAsync();
         public Task<List<TopDeviceSalesDTO>> GetTopDeviceSalesAsync();
         public Task<List<GovernorateAnalyticsDTO>> GetGovernorateAnalyticsAsync();
+        public Task<List<AreaAnalyticsDTO>> GetAreaAnalyticsAsync();
     }
 }
