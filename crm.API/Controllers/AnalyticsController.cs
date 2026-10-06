@@ -7,6 +7,7 @@ using crm.Application.Features.Analytics.Queries.GetCustomersPerMonth;
 using crm.Application.Features.Analytics.Queries.GetCustomerTagAnalytics;
 using crm.Application.Features.Analytics.Queries.GetDeviceConditionAnalytics;
 using crm.Application.Features.Analytics.Queries.GetFollowupStatusAnalytics;
+using crm.Application.Features.Analytics.Queries.GetGovernorateAnalytics;
 using crm.Application.Features.Analytics.Queries.GetMonthlyGrowth;
 using crm.Application.Features.Analytics.Queries.GetOperationTypeAnalytics;
 using crm.Application.Features.Analytics.Queries.GetPaymentTypeAnalytics;
@@ -121,6 +122,13 @@ namespace crm.API.Controllers
         public async Task<IActionResult> GetTopDeviceSales()
         {
             var result = await mediator.Send(new GetTopDeviceSalesQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("geo-distribution/governorate-analytics")]
+        public async Task<IActionResult> GetGovernorateAnalytics()
+        {
+            var result = await mediator.Send(new GetGovernorateAnalyticsQuery());
             return Ok(result);
         }
 

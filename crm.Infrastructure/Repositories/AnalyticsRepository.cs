@@ -311,5 +311,28 @@ namespace crm.Infrastructure.Repositories
                             .Take(10)
                             .ToListAsync();
         }
+
+        public async Task<List<GovernorateAnalyticsDTO>> GetGovernorateAnalyticsAsync()
+        {
+            return await context.Followups
+                            .Where(f =>
+                                !f.IsDeleted &&
+                                f.OperationType == OperationType.Selling &&
+                                f.StatusHistory
+                                    .OrderByDescending(s => s.ChangedAt)
+                                    .ThenByDescending(s => s.Id)
+                                    .Select(s => s.Status)
+                                    .FirstOrDefault() == Status.Purchased)
+                            .GroupBy(f => f.Customer.Area.Governorate)
+                            .Select(g => new GovernorateAnalyticsDTO
+                            {
+                                GovernorateId = g.Key.Id,
+                                GovernorateName = g.Key.Name,
+                                SalesCount = g.Count()
+                            })
+                            .OrderByDescending(x => x.SalesCount)
+                            .Take(5)
+                            .ToListAsync();
+        }
     }
 }
