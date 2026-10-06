@@ -250,5 +250,18 @@ namespace crm.Infrastructure.Repositories
                                     }).OrderByDescending(c => c.CustomerCount)
                                     .ToListAsync();
         }
+
+        public async Task<List<PaymentTypeAnalyticsDTO>> GetPaymentTypeAnalyticsAsync()
+        {
+            return await context.Followups.Where(f => !f.IsDeleted)
+                                    .GroupBy(f => f.PaymentType)
+                                    .Select(g => new PaymentTypeAnalyticsDTO
+                                    {
+                                        PaymentTypeId = g.Key,
+                                        PaymentType = g.Key.ToString(),
+                                        FollowupCount = g.Count()
+                                    })
+                                    .ToListAsync();
+        }
     }
 }

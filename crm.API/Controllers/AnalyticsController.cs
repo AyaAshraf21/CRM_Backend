@@ -7,6 +7,7 @@ using crm.Application.Features.Analytics.Queries.GetCustomersPerMonth;
 using crm.Application.Features.Analytics.Queries.GetCustomerTagAnalytics;
 using crm.Application.Features.Analytics.Queries.GetFollowupStatusAnalytics;
 using crm.Application.Features.Analytics.Queries.GetMonthlyGrowth;
+using crm.Application.Features.Analytics.Queries.GetPaymentTypeAnalytics;
 using crm.Application.Features.Analytics.Queries.GetPlatformAnalytics;
 using crm.Application.Features.Analytics.Queries.GetSalesNum;
 using crm.Application.Features.Analytics.Queries.GetSalesNumForThisMonth;
@@ -124,6 +125,13 @@ namespace crm.API.Controllers
         public async Task<IActionResult> GetCustomerTagAnalytics()
         {
             var result = await mediator.Send(new GetCustomerTagAnalyticsQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("data-distribution/payment-type")]
+        public async Task<IActionResult> GetPaymentTypeAnalytics()
+        {
+            var result = await mediator.Send(new GetPaymentTypeAnalyticsQuery());
             return Ok(result);
         }
     }
