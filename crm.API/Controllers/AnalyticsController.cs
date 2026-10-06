@@ -4,6 +4,7 @@ using crm.Application.Features.Analytics.Queries.GetBestPlatform;
 using crm.Application.Features.Analytics.Queries.GetConversionRate;
 using crm.Application.Features.Analytics.Queries.GetCustomerNumForThisMonth;
 using crm.Application.Features.Analytics.Queries.GetCustomersPerMonth;
+using crm.Application.Features.Analytics.Queries.GetFollowupStatusAnalytics;
 using crm.Application.Features.Analytics.Queries.GetMonthlyGrowth;
 using crm.Application.Features.Analytics.Queries.GetPlatformAnalytics;
 using crm.Application.Features.Analytics.Queries.GetSalesNum;
@@ -108,6 +109,13 @@ namespace crm.API.Controllers
         public async Task<IActionResult> GetPlatformAnalytics()
         {
             var result = await mediator.Send(new GetPlatformAnalyticsQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("data-distribution/followup-status")]
+        public async Task<IActionResult> GetFollowupStatusAnalytics()
+        {
+            var result = await mediator.Send(new GetFollowupStatusAnalyticsQuery());
             return Ok(result);
         }
     }

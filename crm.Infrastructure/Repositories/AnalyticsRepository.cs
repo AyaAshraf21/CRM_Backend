@@ -214,7 +214,8 @@ namespace crm.Infrastructure.Repositories
                             })
                         .Select(x => new PlatformsAnalyticsDTO
                         {
-                            Platform = x.Platform,
+                            PlatformId = x.Platform,
+                            Platform = x.Platform.ToString(),
                             FollowupCount = x.FollowupCount,
                             PurchasedCount = x.PurchasedCount,
                             ConversionRate = (double)x.PurchasedCount / x.FollowupCount * 100
@@ -223,6 +224,18 @@ namespace crm.Infrastructure.Repositories
                         .ToListAsync();
 
             return result;
+        }
+
+        public async Task<List<FollowupStatusAnalyticsDTO>> GetFollowupStatusAnalyticsAsync()
+        {
+            return await context.StatusHistory.GroupBy(s => s.Status)
+                                    .Select(g => new FollowupStatusAnalyticsDTO
+                                    {
+                                        StatusId = g.Key,
+                                        Status = g.Key.ToString(),
+                                        FollowupCount = g.Count()
+                                    }).OrderByDescending(s => s.FollowupCount)
+                                    .ToListAsync();
         }
     }
 }

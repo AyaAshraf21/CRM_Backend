@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace crm.Application.Features.Analytics.DTOs
 {
-    public class PlatformsAnalyticsDTO
-    {
-        public Platform PlatformId { get; set; }
-        public string Platform { get; set; }
+    public class FollowupStatusAnalyticsDTO
+    {        
+        public Status StatusId { get; set; }
+        public string Status { get; set; }
         public int FollowupCount { get; set; }
-        public int PurchasedCount { get; set; }
-        public double ConversionRate { get; set; }
     }
 }
