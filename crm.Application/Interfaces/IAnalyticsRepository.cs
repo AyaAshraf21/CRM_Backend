@@ -23,5 +23,6 @@ namespace crm.Application.Interfaces
         public Task<int> GetAverageCustomersPerMonthAsync();
         public Task<List<PlatformsAnalyticsDTO>> GetPlatformsAnalyticsAsync();
         public Task<List<FollowupStatusAnalyticsDTO>> GetFollowupStatusAnalyticsAsync();
+        public Task<List<CustomerTagAnalyticsDTO>> GetCustomerTagAnalyticsAsync();
     }
 }

@@ -237,5 +237,18 @@ namespace crm.Infrastructure.Repositories
                                     }).OrderByDescending(s => s.FollowupCount)
                                     .ToListAsync();
         }
+
+        public async Task<List<CustomerTagAnalyticsDTO>> GetCustomerTagAnalyticsAsync()
+        {
+            return await context.Customers.Where(c => !c.IsDeleted)
+                                    .GroupBy(c => c.Tag)
+                                    .Select(g => new CustomerTagAnalyticsDTO
+                                    {
+                                        TagId = g.Key.Id,
+                                        Tag = g.Key.Name,
+                                        CustomerCount = g.Count()
+                                    }).OrderByDescending(c => c.CustomerCount)
+                                    .ToListAsync();
+        }
     }
 }
