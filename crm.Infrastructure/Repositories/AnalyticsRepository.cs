@@ -276,5 +276,18 @@ namespace crm.Infrastructure.Repositories
                                     })
                                     .ToListAsync();
         }
+
+        public async Task<List<OperationTypeAnalyticsDTO>> GetOperationTypeAnalyticsAsync()
+        {
+            return await context.Followups.Where(f => !f.IsDeleted)
+                                    .GroupBy(f => f.OperationType)
+                                    .Select(g => new OperationTypeAnalyticsDTO
+                                    {
+                                        OperationTypeId = g.Key,
+                                        OperationType = g.Key.ToString(),
+                                        FollowupCount = g.Count()
+                                    })
+                                    .ToListAsync();
+        }
     }
 }
