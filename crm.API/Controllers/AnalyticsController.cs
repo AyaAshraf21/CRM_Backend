@@ -5,6 +5,7 @@ using crm.Application.Features.Analytics.Queries.GetConversionRate;
 using crm.Application.Features.Analytics.Queries.GetCustomerNumForThisMonth;
 using crm.Application.Features.Analytics.Queries.GetCustomersPerMonth;
 using crm.Application.Features.Analytics.Queries.GetCustomerTagAnalytics;
+using crm.Application.Features.Analytics.Queries.GetDeviceConditionAnalytics;
 using crm.Application.Features.Analytics.Queries.GetFollowupStatusAnalytics;
 using crm.Application.Features.Analytics.Queries.GetMonthlyGrowth;
 using crm.Application.Features.Analytics.Queries.GetPaymentTypeAnalytics;
@@ -132,6 +133,13 @@ namespace crm.API.Controllers
         public async Task<IActionResult> GetPaymentTypeAnalytics()
         {
             var result = await mediator.Send(new GetPaymentTypeAnalyticsQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("data-distribution/device-condition")]
+        public async Task<IActionResult> GetDeviceConditionAnalytics()
+        {
+            var result = await mediator.Send(new GetDeviceConditionAnalyticsQuery());
             return Ok(result);
         }
     }

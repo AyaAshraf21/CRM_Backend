@@ -263,5 +263,18 @@ namespace crm.Infrastructure.Repositories
                                     })
                                     .ToListAsync();
         }
+
+        public async Task<List<DeviceConditionAnalyticsDTO>> GetDeviceConditionAnalyticsAsync()
+        {
+            return await context.Followups.Where(f => !f.IsDeleted)
+                                    .GroupBy(f => f.DeviceCondition)
+                                    .Select(g => new DeviceConditionAnalyticsDTO
+                                    {
+                                        DeviceConditionId = g.Key,
+                                        DeviceCondition = g.Key.ToString(),
+                                        FollowupCount = g.Count()
+                                    })
+                                    .ToListAsync();
+        }
     }
 }

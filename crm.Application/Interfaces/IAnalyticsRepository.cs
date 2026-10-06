@@ -25,5 +25,6 @@ namespace crm.Application.Interfaces
         public Task<List<FollowupStatusAnalyticsDTO>> GetFollowupStatusAnalyticsAsync();
         public Task<List<CustomerTagAnalyticsDTO>> GetCustomerTagAnalyticsAsync();
         public Task<List<PaymentTypeAnalyticsDTO>> GetPaymentTypeAnalyticsAsync();
+        public Task<List<DeviceConditionAnalyticsDTO>> GetDeviceConditionAnalyticsAsync();
     }
 }
