@@ -289,5 +289,27 @@ namespace crm.Infrastructure.Repositories
                                     })
                                     .ToListAsync();
         }
+
+        public async Task<List<TopDeviceSalesDTO>> GetTopDeviceSalesAsync()
+        {
+            return await context.Followups
+                            .Where(f =>
+                                !f.IsDeleted &&
+                                f.OperationType == OperationType.Selling &&
+                                f.StatusHistory
+                                    .OrderByDescending(s => s.ChangedAt)
+                                    .ThenByDescending(s => s.Id)
+                                    .Select(s => s.Status)
+                                    .FirstOrDefault() == Status.Purchased)
+                            .GroupBy(f => f.DeviceType)
+                            .Select(g => new TopDeviceSalesDTO
+                            {
+                                DeviceType = g.Key,
+                                SalesCount = g.Count()
+                            })
+                            .OrderByDescending(x => x.SalesCount)
+                            .Take(10)
+                            .ToListAsync();
+        }
     }
 }

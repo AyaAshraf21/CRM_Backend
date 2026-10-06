@@ -14,6 +14,7 @@ using crm.Application.Features.Analytics.Queries.GetPlatformAnalytics;
 using crm.Application.Features.Analytics.Queries.GetSalesNum;
 using crm.Application.Features.Analytics.Queries.GetSalesNumForThisMonth;
 using crm.Application.Features.Analytics.Queries.GetTopDevice;
+using crm.Application.Features.Analytics.Queries.GetTopDeviceSales;
 using crm.Application.Features.Analytics.Queries.GetTopGovernorate;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -113,6 +114,13 @@ namespace crm.API.Controllers
         public async Task<IActionResult> GetPlatformAnalytics()
         {
             var result = await mediator.Send(new GetPlatformAnalyticsQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("sales-analytics/top-device-sales")]
+        public async Task<IActionResult> GetTopDeviceSales()
+        {
+            var result = await mediator.Send(new GetTopDeviceSalesQuery());
             return Ok(result);
         }
 
