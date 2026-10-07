@@ -14,5 +14,6 @@ namespace crm.Application.Interfaces
         public Task<IdentityResult> RegisterEmployeeAsync(ApplicationUser user, string password);
         public Task<bool> CheckPasswordAsync(ApplicationUser user, string password);
         public Task<ApplicationUser> GetUserByNameAsync(string name);
+        public Task<bool> ChangePassword(ApplicationUser applicationUser , string currentPassword, string newPassword);
     }
 }

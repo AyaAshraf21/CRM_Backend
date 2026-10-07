@@ -18,6 +18,12 @@ namespace crm.Infrastructure.Repositories
             this.userManager = userManager;
         }
 
+        public async Task<bool> ChangePassword(ApplicationUser applicationUser, string currentPassword, string newPassword)
+        {
+            var result = await userManager.ChangePasswordAsync(applicationUser, currentPassword, newPassword);
+            return result.Succeeded;
+        }
+
         public async Task<bool> CheckPasswordAsync(ApplicationUser user, string password)
         {
             return await userManager.CheckPasswordAsync(user, password);
@@ -36,6 +42,7 @@ namespace crm.Infrastructure.Repositories
                 await userManager.AddToRoleAsync(user, "Admin");
             }
             return result;
+
         }
 
         public async Task<IdentityResult> RegisterEmployeeAsync(ApplicationUser user, string password)

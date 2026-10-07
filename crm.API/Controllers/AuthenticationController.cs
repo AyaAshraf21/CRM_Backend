@@ -1,4 +1,5 @@
-﻿using crm.Application.Features.Authentication.Commands.LoginUser;
+﻿using crm.Application.Features.Authentication.Commands.ChangePassword;
+using crm.Application.Features.Authentication.Commands.LoginUser;
 using crm.Application.Features.Authentication.Commands.RegisterAdmin;
 using crm.Application.Features.Authentication.Commands.RegisterUser;
 using crm.Application.Features.Authentication.DTOs;
@@ -38,5 +39,17 @@ namespace crm.API.Controllers
             var result = await mediator.Send(new LoginUserCommand(userDTO));
             return Ok(result);
         }
+
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword(string username,string currentPassword, string newPassword)
+        {
+            var result = await mediator.Send(new ChangePasswordCommand(username,currentPassword,newPassword));
+            return Ok(new
+            {
+                Message = $"Password for {username} is changed successfully"
+            });
+        }
+
+        
     }
 }
