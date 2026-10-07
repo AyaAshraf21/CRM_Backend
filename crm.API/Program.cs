@@ -5,18 +5,20 @@ using crm.Application.Common.Mapping;
 using crm.Application.Features.Customers.Validators;
 using crm.Application.Features.Governates.Queries.GetAllGovernates;
 using crm.Application.Interfaces;
+using crm.Domain.Entities;
 using crm.Infrastructure;
 using crm.Infrastructure.Data;
 using crm.Infrastructure.Repositories;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace crm.API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -43,12 +45,17 @@ namespace crm.API
                 typeof(IPipelineBehavior<,>),
                 typeof(ValidationBehavior<,>));
 
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<CRMContext>()
+                .AddDefaultTokenProviders();
+
             builder.Services.AddScoped<IGovernorateRepository, GovernorateRepository>();
             builder.Services.AddScoped<IAreaRepository, AreaRepository>();
             builder.Services.AddScoped<ITagRepository, TagRepository>();
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddScoped<IFollowupRepository, FollowupRepository>();
             builder.Services.AddScoped<IAnalyticsRepository, AnalyticsRepository>();
+            builder.Services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
@@ -57,6 +64,12 @@ namespace crm.API
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                await IdentitySeeder.SeedRolesAsync(
+                    scope.ServiceProvider);
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

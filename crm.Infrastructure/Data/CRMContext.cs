@@ -1,9 +1,10 @@
 ﻿using crm.Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace crm.Infrastructure.Data
 {
-    public class CRMContext : DbContext
+    public class CRMContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Followup> Followups { get; set; }
