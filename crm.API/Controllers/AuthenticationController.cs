@@ -1,9 +1,11 @@
-﻿using crm.Application.Features.Authentication.Commands.ChangePassword;
+﻿using crm.Application.Common.Authorization;
+using crm.Application.Features.Authentication.Commands.ChangePassword;
 using crm.Application.Features.Authentication.Commands.LoginUser;
 using crm.Application.Features.Authentication.Commands.RegisterAdmin;
 using crm.Application.Features.Authentication.Commands.RegisterUser;
 using crm.Application.Features.Authentication.DTOs;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +22,7 @@ namespace crm.API.Controllers
             this.mediator = mediator;
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpPost("register/admin")]
         public async Task<IActionResult> RegisterAdmin(UserDTO userDTO)
         {
@@ -27,12 +30,14 @@ namespace crm.API.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpPost("register/employee")]
         public async Task<IActionResult> RegisterUser(UserDTO userDTO)
         {
             await mediator.Send(new RegisterUserCommand(userDTO));
             return Ok();
         }
+
         [HttpPost("login")]
         public async Task<IActionResult> LoginUser(UserDTO userDTO)
         {
@@ -40,6 +45,7 @@ namespace crm.API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpPost("change-password")]
         public async Task<IActionResult> ChangePassword(string username,string currentPassword, string newPassword)
         {

@@ -1,4 +1,5 @@
-﻿using crm.Application.Features.Customers.Commands.CreateCustomer;
+﻿using crm.Application.Common.Authorization;
+using crm.Application.Features.Customers.Commands.CreateCustomer;
 using crm.Application.Features.Customers.Commands.DeleteCustomer;
 using crm.Application.Features.Customers.Commands.RestoreCustomer;
 using crm.Application.Features.Customers.Commands.UpdateCustomer;
@@ -7,6 +8,7 @@ using crm.Application.Features.Customers.Queries.GetAllCustomers;
 using crm.Application.Features.Customers.Queries.GetCustomerByPhone;
 using crm.Application.Features.Customers.Queries.GetCustomerNum;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,6 +42,7 @@ namespace crm.API.Controllers
             });
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCustomer(int id,[FromBody] CustomerDTO customerDTO)
         {
@@ -51,6 +54,7 @@ namespace crm.API.Controllers
             });
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {

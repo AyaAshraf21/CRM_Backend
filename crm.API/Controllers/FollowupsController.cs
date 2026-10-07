@@ -1,4 +1,5 @@
-﻿using crm.Application.Features.Followups.Commands.CreateFollowup;
+﻿using crm.Application.Common.Authorization;
+using crm.Application.Features.Followups.Commands.CreateFollowup;
 using crm.Application.Features.Followups.Commands.DeleteFollowup;
 using crm.Application.Features.Followups.Commands.UpdateFollowup;
 using crm.Application.Features.Followups.Commands.UpdateFollowupStatus;
@@ -8,6 +9,7 @@ using crm.Application.Features.Followups.Queries.GetAllFollowups;
 using crm.Application.Features.Followups.Queries.GetFollowupsNum;
 using crm.Domain.Enums;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,6 +43,7 @@ namespace crm.API.Controllers
             });
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateFollowup(int id, [FromBody] FollowupDTO followupDTO)
         {
@@ -63,6 +66,7 @@ namespace crm.API.Controllers
             });
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFollowup(int id)
         {
