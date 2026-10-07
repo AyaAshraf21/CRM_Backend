@@ -12,6 +12,7 @@ namespace crm.Application.Interfaces
     {
         public Task<IdentityResult> RegisterAdminAsync(ApplicationUser user, string password);
         public Task<IdentityResult> RegisterEmployeeAsync(ApplicationUser user, string password);
-        public Task<ApplicationUser> GetUserByName(string name);
+        public Task<bool> CheckPasswordAsync(ApplicationUser user, string password);
+        public Task<ApplicationUser> GetUserByNameAsync(string name);
     }
 }

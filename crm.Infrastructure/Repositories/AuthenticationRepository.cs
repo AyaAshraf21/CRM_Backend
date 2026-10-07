@@ -18,7 +18,12 @@ namespace crm.Infrastructure.Repositories
             this.userManager = userManager;
         }
 
-        public async Task<ApplicationUser> GetUserByName(string name)
+        public async Task<bool> CheckPasswordAsync(ApplicationUser user, string password)
+        {
+            return await userManager.CheckPasswordAsync(user, password);
+        }
+
+        public async Task<ApplicationUser> GetUserByNameAsync(string name)
         {
             return await userManager.FindByNameAsync(name);
         }

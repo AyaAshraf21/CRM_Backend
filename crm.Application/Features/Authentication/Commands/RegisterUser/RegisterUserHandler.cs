@@ -28,7 +28,7 @@ namespace crm.Application.Features.Authentication.Commands.RegisterUser
             {
                 UserName = request.userDTO.Username,
             };
-            var foundedUser = await authenticationRepository.GetUserByName(user.UserName);
+            var foundedUser = await authenticationRepository.GetUserByNameAsync(user.UserName);
             if (foundedUser != null)
             {
                 throw new AlreadyExistsException("username");

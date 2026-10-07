@@ -32,7 +32,7 @@ namespace crm.Infrastructure.Repositories
             var userClaims = new List<Claim>();
             userClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
             userClaims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
-            userClaims.Add(new Claim(ClaimTypes.Email, user.Email));
+            userClaims.Add(new Claim(ClaimTypes.Name, user.UserName));
 
             foreach (var role in roles)
             {
