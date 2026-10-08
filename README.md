@@ -80,9 +80,9 @@ The system provides a centralized backend for managing the complete customer lif
 ### Settings
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/ddf7f662-26e8-4e6d-b2a1-d588ad643655" width="33%">
-  <img src="https://github.com/user-attachments/assets/5da12ee3-47e7-4398-bd0a-f93a5d68d1c4" width="33%">
-  <img src="https://github.com/user-attachments/assets/74f6dd67-de4a-4bd4-a76b-c2cf73d17c73" width="33%">
+  <img src="https://github.com/user-attachments/assets/ddf7f662-26e8-4e6d-b2a1-d588ad643655" width="30%">
+  <img src="https://github.com/user-attachments/assets/5da12ee3-47e7-4398-bd0a-f93a5d68d1c4" width="30%">
+  <img src="https://github.com/user-attachments/assets/74f6dd67-de4a-4bd4-a76b-c2cf73d17c73" width="30%">
 </p>
 
 ---
@@ -90,9 +90,9 @@ The system provides a centralized backend for managing the complete customer lif
 ### Swagger
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/47daf310-a9d6-43a7-bd23-85611f886f4f" width="33%">
-  <img src="https://github.com/user-attachments/assets/c8813250-393d-4ef1-91fe-4f2644d30882" width="33%">
-  <img src="https://github.com/user-attachments/assets/75109e67-7e3d-4ac4-8b18-4a25f8c4decc" width="33%">
+  <img src="https://github.com/user-attachments/assets/47daf310-a9d6-43a7-bd23-85611f886f4f" width="30%">
+  <img src="https://github.com/user-attachments/assets/c8813250-393d-4ef1-91fe-4f2644d30882" width="30%">
+  <img src="https://github.com/user-attachments/assets/75109e67-7e3d-4ac4-8b18-4a25f8c4decc" width="30%">
 </p>
 
 ---
